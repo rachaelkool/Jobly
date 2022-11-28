@@ -130,6 +130,22 @@ describe("GET /jobs", function () {
         },
     );
   });
+
+  test.only("does not work: filtering", async function () {
+    const resp = await request(app)
+        .get(`/jobs`)
+        .query({ minSalary: "a" });
+        console.log(resp.body)
+    expect(resp.body).toEqual(
+      {
+        error: {
+          message: [ 'instance.minSalary is not of a type(s) integer' ],
+          status: 400
+        }
+      }
+    );
+  });
+
 });
 
 /************************************** GET /jobs/:id */
